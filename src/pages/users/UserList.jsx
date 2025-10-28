@@ -27,7 +27,7 @@ function UserList() {
         <h1>All Users</h1>
       </div>
 
-      <table border={1} cellPadding={5} cellSpacing={0} align="center">
+      <table border={1} cellPadding={5} cellSpacing={0} align="center" width="100%">
         <thead>
           <tr>
             <th>Name</th>
