@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -35,6 +36,7 @@ function UserList() {
             <th>isActive</th>
             <th>CreatedAt</th>
             <th>UpdatedAt</th>
+            <th>Action</th>
           </tr>
         </thead>
 
@@ -60,7 +62,17 @@ function UserList() {
                 minute:"numeric",
                 weekday:"long"
               })}</td>
+              <td>
+                <Link to={`/users/${user._id}`}>
+                    <button>View</button>
+                </Link> {" "} | {" "}
+                <Link to={`/users/${user._id}/edit`}>
+                     <button>Edit</button>
+                </Link> {" "} | {" "}
+                <button>Del</button>
+              </td>
             </tr>
+            
           ))}
         </tbody>
       </table>
