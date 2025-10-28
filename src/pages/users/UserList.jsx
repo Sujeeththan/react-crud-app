@@ -26,6 +26,9 @@ function UserList() {
     <>
       <div className="content-container">
         <h1>All Users</h1>
+        <Link to= "/users/new">
+        <button>+AddUser</button>
+        </Link>
       </div>
 
       <table border={1} cellPadding={5} cellSpacing={0} align="center" width="100%">
