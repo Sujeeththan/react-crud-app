@@ -22,6 +22,17 @@ function UserList() {
     }
   };
 
+  const deleteUser = async (id) => {
+    if (confirm("Are you sure do you want to delete")) {
+      await axios.delete(
+        `https://express-mongo-connection-sigma.vercel.app/api/users/${id}`
+      );
+      alert("User deleted successfuly");
+      getUsers();
+    }
+  };
+
+
   return (
     <>
       <div className="content-container">
@@ -72,7 +83,7 @@ function UserList() {
                 <Link to={`/users/${user._id}/edit`}>
                      <button>Edit</button>
                 </Link> {" "} | {" "}
-                <button>Del</button>
+                <button onClick={() =>  deleteUser(user._id)}>Del</button>
               </td>
             </tr>
             
