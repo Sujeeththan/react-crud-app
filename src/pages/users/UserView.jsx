@@ -1,17 +1,17 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import  { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { getUserById } from '../../api/userApi';
 
 function UserView() {
     const [user, setuser] = useState()
     const {id}  = useParams();
 
      useEffect(() => {
-        getOneUser()
+        fetchUser()
      },[])
 
-    const getOneUser = async () => {
-        const res = await axios.get(`https://express-mongo-connection-sigma.vercel.app/api/users/${id}`)
+    const fetchUser = async () => {
+        const res = await getUserById(id);
        const data = res.data.user
         console.log(data);
         setuser(data)
@@ -21,11 +21,21 @@ function UserView() {
   return (
     <div>
         <h1>UserView</h1>
-        <ul>
-            <li><strong>Name:</strong> {user.name}</li>
-            <li><strong>Email:</strong>{user.email}</li>
-            <li><strong>IsActive:</strong>{user.isActive ? "Yes" : "No"}</li>
-        </ul>
+        <p>
+           <strong>Name:</strong> {user.name}
+        </p>
+
+        <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+
+        <p>
+           <strong>Status:</strong> {user.isActive ? "Active" : "Inactive"}
+        </p>
+
+        <Link to="{`/users/${user._id}/edit`}">Edit</Link> |{" "}
+        <Link to="/users">Back to List</Link>
+    
     </div>
   )
 }

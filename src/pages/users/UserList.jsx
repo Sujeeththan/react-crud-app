@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { deleteUser, getUsers } from "../../api/userApi";
 
 function UserList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getUsers();
+    fetchUsers();
   }, []);
 
-  const getUsers = async () => {
+  const fetchUsers = async () => {
     try {
-      const res = await axios.get(
-        "https://express-mongo-connection-sigma.vercel.app/api/users"
-      );
+      const res = await getUsers();
       const userData = res.data.users
       console.log(userData);
       setUsers(userData);
@@ -22,13 +20,11 @@ function UserList() {
     }
   };
 
-  const deleteUser = async (id) => {
+  const handleDelete = async (id) => {
     if (confirm("Are you sure do you want to delete")) {
-      await axios.delete(
-        `https://express-mongo-connection-sigma.vercel.app/api/users/${id}`
-      );
+      await deleteUser();
       alert("User deleted successfuly");
-      getUsers();
+      fetchUsers();
     }
   };
 
@@ -83,7 +79,7 @@ function UserList() {
                 <Link to={`/users/${user._id}/edit`}>
                      <button>Edit</button>
                 </Link> {" "} | {" "}
-                <button onClick={() =>  deleteUser(user._id)}>Del</button>
+                <button onClick={() =>  handleDelete(user._id)}>Del</button>
               </td>
             </tr>
             
